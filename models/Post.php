@@ -24,7 +24,16 @@ class Post
     // Get Posts
     public function read()
     {
+        // Make Query
         $query  = "SELECT P.*, C.name AS category_name FROM " . $this->table . " P";
-        $query .= " INNER JOIN category C ON P.category_id = C.id ORDER BY P.created_at";
+        $query .= " INNER JOIN category C ON P.category_id = C.id ORDER BY P.created_at DESC";
+
+        // Prepare Query
+        $stmt = $this->conn->prepare($query);
+
+        // Execute Query
+        $stmt->execute();
+
+        return $stmt;
     }
 }
