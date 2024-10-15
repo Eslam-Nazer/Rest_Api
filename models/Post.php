@@ -65,7 +65,7 @@ class Post
 
     public function create()
     {
-        $query = 'INSERT INTO ' . $this->table . ' SET title=:title body=:body author=:author category_id=:category_id';
+        $query = 'INSERT INTO ' . $this->table . ' SET title=:title, body=:body, author=:author, category_id=:category_id';
 
         // Prepare statment
         $stmt = $this->conn->prepare($query);
@@ -84,7 +84,7 @@ class Post
             ":category_id"    => $this->category_id,
         ];
 
-        if ($stmt($params)) {
+        if ($stmt->execute($params)) {
             return true;
         }
 
