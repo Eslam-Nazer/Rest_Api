@@ -125,4 +125,28 @@ class Post
         printf("Error: %s\n", $stmt->error);
         return false;
     }
+
+    public function delete()
+    {
+        // Create query
+        $query = "DELETE FROM $this->table WHERE id=:id";
+
+        // Prepare Statment
+        $stmt = $this->conn->prepare($query);
+
+        // Filtration id
+        $this->id = htmlspecialchars(strip_tags($this->id));
+
+        // Bind Value
+        $stmt->bindValue(":id", $this->id, PDO::PARAM_INT);
+
+        // Execute query
+        if ($stmt->execute()) {
+            return true;
+        }
+
+        // Print error if something goes wrong
+        printf("Error: %s\n", $stmt->error);
+        return false;
+    }
 }
