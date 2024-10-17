@@ -62,4 +62,20 @@ class Category
         }
         return false;
     }
+
+    public function update()
+    {
+        // Make Query
+        $query = "UPDATE $this->table SET name=:name WHERE id=:id";
+        // Prepare Statment
+        $stmt = $this->conn->prepare($query);
+        // Bind Properties Value
+        $stmt->bindValue(":id", $this->id, PDO::PARAM_INT);
+        $stmt->bindValue(":name", $this->name, PDO::PARAM_STR);
+        // Execute Statment
+        if ($stmt->execute()) {
+            return true;
+        }
+        return false;
+    }
 }
