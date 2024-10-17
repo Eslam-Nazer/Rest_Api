@@ -78,4 +78,19 @@ class Category
         }
         return false;
     }
+
+    public function delete()
+    {
+        // Make Query
+        $query = "DELETE FROM $this->table WHERE id=:id";
+        // Prepare Statment
+        $stmt = $this->conn->prepare($query);
+        // Bind Properties
+        $stmt->bindValue(":id", $this->id, PDO::PARAM_INT);
+        // Execute Statment
+        if ($stmt->execute()) {
+            return true;
+        }
+        return false;
+    }
 }
