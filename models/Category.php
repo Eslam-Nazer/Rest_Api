@@ -47,4 +47,19 @@ class Category
         $this->name         = $row["name"];
         $this->created_at   = $row["created_at"];
     }
+
+    public function create()
+    {
+        // Make Query
+        $query = "INSERT INTO $this->table SET name=:name, created_at=now()";
+        // Prepare Statment
+        $stmt = $this->conn->prepare($query);
+        // Prepare Properties Values
+        $stmt->bindValue(":name", $this->name, PDO::PARAM_STR);
+        // Execute Statmt
+        if ($stmt->execute()) {
+            return true;
+        }
+        return false;
+    }
 }
